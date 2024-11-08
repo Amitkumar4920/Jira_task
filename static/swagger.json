@@ -1,0 +1,109 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Flask API for user signup and login with JWT",
+      "version": "1.0.0",
+      "title": "Flask User API"
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/signup": {
+        "post": {
+          "summary": "User signup",
+          "description": "Creates a new user account.",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "body",
+              "description": "Username for the new account",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "password",
+              "in": "body",
+              "description": "Password for the new account",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "User created successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          }
+        }
+      },
+      "/login": {
+        "post": {
+          "summary": "User login",
+          "description": "Log in using the username and password to get a JWT token.",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "body",
+              "description": "Username of the account",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "password",
+              "in": "body",
+              "description": "Password of the account",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "JWT token",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "access_token": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            },
+            "401": {
+              "description": "Unauthorized"
+            }
+          }
+        }
+      },
+      "/protected": {
+        "get": {
+          "summary": "Protected resource",
+          "description": "A resource that requires JWT token authentication.",
+          "responses": {
+            "200": {
+              "description": "Access granted"
+            },
+            "401": {
+              "description": "Unauthorized"
+            }
+          }
+        }
+      }
+    }
+  }
+  
